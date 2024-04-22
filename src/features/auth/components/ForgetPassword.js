@@ -4,9 +4,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import { resetPasswordRequestAsync, 
     selectMailSent 
 } from '../authSlice';
+import { useNavigate } from  'react-router-dom';
+import { useEffect } from 'react';
 
 export default function ForgotPassword() {
-
+const navigate = useNavigate();
  const mailSent = useSelector(selectMailSent);
   const dispatch = useDispatch()
   const {
@@ -16,6 +18,13 @@ export default function ForgotPassword() {
   } = useForm();
 
   console.log(errors);
+  console.log(mailSent);
+  useEffect(() =>{
+    if(mailSent){
+      // 'http://localhost:3000/reset-password?token=' + token + '&email=' + email
+      navigate(`/reset-password?token=${mailSent.token}&email=${mailSent.email}`)
+    }
+  },[mailSent])
 
   return (
     <>
@@ -64,9 +73,9 @@ export default function ForgotPassword() {
                 {errors.email && (
                   <p className="text-red-500">{errors.email.message}</p>
                 )}
-                {mailSent && (
+                {/* {mailSent && (
                   <p className="text-green-500">Mail Sent</p>
-                )}
+                )} */}
               </div>
             </div>
 

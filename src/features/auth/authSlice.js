@@ -14,7 +14,7 @@ const initialState = {
   status: 'idle',
   error: null,
   userChecked: false,
-  mailSent: false,
+  mailSent: null,
   passwordReset:false
 };
 
@@ -90,7 +90,14 @@ export const signOutAsync = createAsyncThunk(
 export const authSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    resetMailSent(state) {
+      state.mailSent = null;
+    },
+    resetUser(state) {
+      state.loggedInUserToken = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createUserAsync.pending, (state) => {
@@ -135,7 +142,7 @@ export const authSlice = createSlice({
       })
       .addCase(resetPasswordRequestAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.mailSent = true;
+        state.mailSent = action.payload;
       })
       .addCase(resetPasswordAsync.pending, (state) => {
         state.status = 'loading';
@@ -157,6 +164,7 @@ export const selectUserChecked = (state) => state.auth.userChecked;
 export const selectMailSent = (state) => state.auth.mailSent;
 export const selectPasswordReset = (state) => state.auth.passwordReset;
 
-export const { } = authSlice.actions;
+// export const { } = authSlice.actions;
+export const { resetMailSent,resetUser } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -9,13 +9,14 @@ import { useForm } from "react-hook-form";
 import "./userProfile.css";
 import backgroundImage from "../../../asset/image.jpg";
 import addImage from "../../../asset/userAdd.jpg";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { PencilIcon } from "@heroicons/react/24/outline";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector(selectUserInfo);
- 
+
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
   const [imageUrl, setImageUrl] = useState(addImage);
@@ -45,34 +46,6 @@ export default function UserProfile() {
     newUser.addresses.splice(index, 1);
     dispatch(updateUserAsync(newUser));
   };
-
-  const handleImage = (event) => {
-    console.log("hello");
-    event.preventDefault();
-
-    const selectedFile = event.target.files[0];
-    const data = new FormData();
-    data.append("file", selectedFile);
-    data.append("upload_preset", "convoConnect");
-    data.append("cloud_name", "dk2hwqtnv");
-    fetch(`https://api.cloudinary.com/v1_1/dk2hwqtnv/image/upload`, {
-      method: "POST",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.secure_url);
-        const file_loc = data.secure_url;
-        setImageUrl(file_loc);
-        console.log(imageUrl);
-        const newUser = { ...userInfo, userImage: file_loc };
-        dispatch(updateUserAsync(newUser));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const handleEditForm = (index) => {
     setSelectedEditIndex(index);
     const address = userInfo.addresses[index];
@@ -97,6 +70,42 @@ export default function UserProfile() {
     setShowAddAddressForm(false);
   };
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedName, setEditedName] = useState(userInfo.name);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleNameChange = (event) => {
+    setEditedName(event.target.value);
+  };
+
+  const handleBlur = () => {
+    
+    setIsEditing(false);
+  };
+
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      // Call function to save the name
+      handleSave();
+    }
+  };
+
+  const handleSave = () => {
+    // Save the edited name
+    const newUser = { ...userInfo, name: editedName };
+    console.log(newUser)
+    if (newUser.id) {
+    dispatch(updateUserAsync(newUser)); 
+    }
+    setIsEditing(false);
+    
+  };
+
+
   return (
     <div>
       <div className="mx-auto mt-3 bg-white max-w-7xl ">
@@ -104,95 +113,87 @@ export default function UserProfile() {
           className="border-t border-gray-200 px-4 py-6 sm:px-6"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-         <div className="flex">
-  {/* Left column for image */}
-  <div className="flex items-center ml-6">
-    <label htmlFor="imageInput">
-      <div className="image-container w-1 h-1">
-        <img
-          src={imageUrl}
-          alt="img"
-          style={{
-            width: "100%",
-            border: "2px solid gray",
-            borderRadius: "50%",
-            height: "100%",
-            justifyContent: "center",
-          }}
-        />
-      </div>
-    </label>
-    <input
-      name="avatarURL"
-      type="file"
-      id="imageInput"
-      placeholder="Upload an image file"
-      onChange={handleImage}
-      accept="image/*"
-      style={{ display: "none" }}
-    />
-  </div>
-
-  {/* Right column for user information */}
-  <div className="flex mb-3" style={{marginLeft: "120px"}}> {/* Add margin for spacing */}
-    <div style={{ textAlign: "left" }}>
-      <h2 className="text-4xl my-5 font-bold tracking-tight text-white">
-        Hi {userInfo?.name}!
-      </h2>
-      {/* <p className="my-2 tracking-tight text-gray-300">
+          <div className="flex">
+            <div className="flex mb-3" style={{ marginLeft: "120px" }}>
+              {" "}
+              {/* Add margin for spacing */}
+              <div style={{ textAlign: "left" }}>
+                <h2 className="text-4xl my-5 font-bold tracking-tight text-white">
+                  Hi {userInfo?.name}!
+                </h2>
+                {/* <p className="my-2 tracking-tight text-gray-300">
         Email address: {userInfo.email}
       </p> */}
-      {userInfo.role === "admin" && (
-        <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
-          Role: {userInfo.role}
-        </h3>
-      )}
-    </div>
-  </div>
-</div>
-
+                {userInfo.role === "admin" && (
+                  <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
+                    Role: {userInfo.role}
+                  </h3>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <div className="flex justify-between">
+            {/* Contact information */}
+            <div className="text-start ml-8">
+              <h4 className="text-xl my-2 tracking-tight text-gray-700">
+                CONTACT
+              </h4>
+              <div className="flex items-center">
+                <p className="my-2 tracking-tight text-gray-600 flex-grow">
+                  User Name:{" "}
+                  {isEditing ? (
+                    <input
+                    type="text"
+                    value={editedName}
+                    onChange={handleNameChange}
+                    onBlur={handleBlur}
+                    onKeyPress={handleKeyPress}
+                    className="border-none focus:outline-none"
+                    style={{ borderBottom: "1px solid #333", borderStyle: "none" }}
+                  />
+                  ) : (
+                    userInfo.name
+                  )}
+                </p>
+                {!isEditing && (
+                  <PencilIcon
+                    key="edit"
+                    onClick={handleEditClick}
+                    className="ml-2 cursor-pointer w-8 h-8"
+                  />
+                )}
+              </div>
+              <p className="my-2 tracking-tight text-gray-600">
+                Email address: {userInfo.email}
+              </p>
+            </div>
 
-        <div className="flex justify-between">
-  {/* Contact information */}
-  <div className="text-start ml-8">
-    <h4 className="text-xl my-2 tracking-tight text-gray-700">CONTACT</h4>
-    <p className="my-2 tracking-tight text-gray-600">
-      User Name: {userInfo.name}
-    </p>
-    <p className="my-2 tracking-tight text-gray-600">
-      Email address: {userInfo.email}
-    </p>
- 
-  </div>
+            {/* Buttons at the top of the right side */}
+            <div className="flex flex-row items-start">
+              <button
+                onClick={(e) => {
+                  setShowAddAddressForm(true);
+                  setSelectedEditIndex(-1);
+                }}
+                type="submit"
+                className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-4"
+              >
+                Add New Address
+              </button>
+              <button
+                onClick={(e) => {
+                  navigate("/my-orders");
+                }}
+                className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
+              >
+                Show My Orders
+              </button>
+            </div>
+          </div>
 
-  {/* Buttons at the top of the right side */}
-  <div className="flex flex-row items-start">
-    <button
-            onClick={(e) => {
-              setShowAddAddressForm(true);
-              setSelectedEditIndex(-1);
-            }}
-            type="submit"
-            className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-4" 
-          >
-            Add New Address
-          </button>
-          <button
-            onClick={(e) => {
-              navigate('/my-orders')
-            }}
-            className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 " 
-          >
-            Show My Orders
-          </button>
-  </div>
-</div>
-
-
-          
           {showAddAddressForm ? (
             <form
               className="bg-white px-5 py-12 mt-12"
@@ -203,8 +204,6 @@ export default function UserProfile() {
                 reset();
               })}
             >
-             
-
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                   <h2 className="text-2xl font-semibold leading-7 text-gray-900">

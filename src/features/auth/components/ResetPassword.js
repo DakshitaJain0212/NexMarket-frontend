@@ -101,9 +101,9 @@ export default function ResetPassword() {
                     {errors.confirmPassword.message}
                   </p>
                 )}
-                {passwordReset && (
+                {/* {passwordReset && (
                   <p className="text-green-500">Password Reset</p>
-                )}
+                )} */}
                 {error && (
                   <p className="text-red-500">{error}</p>
                 )}

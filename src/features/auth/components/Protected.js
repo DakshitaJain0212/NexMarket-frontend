@@ -6,9 +6,9 @@ function Protected({ children }) {
   const user = useSelector(selectLoggedInUser);
 const token = localStorage.getItem("token");
 console.log(token);
-console.log(children);
+console.log(user);
 
-  if (user) {
+  if (token) {
     return children;
   }
   else return <Navigate to="/login"></Navigate>;
