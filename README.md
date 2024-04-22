@@ -11,18 +11,19 @@
 Preview: 
 
 <p align="center">  
-  <br><br><img alt="Clock" src="./assest/img1.png">
+  <br><br><img alt="Clock" src="./src/asset/img1.png">
   <sub>Home Page<sub>
 </p>
 
 <p align="center">
-  <br><br><img alt="Clock" src="./assest/img3.png">
+  
+  <br><br><img alt="Clock" src="./src/asset/img3.png">
   <sub>Cart<sub>
 </p>
 
 <p align="center">
   
-  <br><br><img alt="Clock" src="./assest/img2.png">
+  <br><br><img alt="Clock" src="./src/asset/img2.png">
   <sub>Product Details<sub>
 </p>
 
