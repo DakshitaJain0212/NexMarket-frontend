@@ -1,10 +1,7 @@
 # NexMarket
 
 
-🔗 Project Link (https://nex-market-backend.vercel.app)
-
-
- Code Repositories:
+🔗 Code Repositories:
 - React [frontend] - https://github.com/DakshitaJain0212/NexMarket-frontend
 - Node [backend] - https://github.com/DakshitaJain0212/NexMarket-Backend
 
