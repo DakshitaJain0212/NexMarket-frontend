@@ -19,12 +19,6 @@ const navigate = useNavigate();
 
   console.log(errors);
   console.log(mailSent);
-  useEffect(() =>{
-    if(mailSent){
-      // 'http://localhost:3000/reset-password?token=' + token + '&email=' + email
-      navigate(`/reset-password?token=${mailSent.token}&email=${mailSent.email}`)
-    }
-  },[mailSent])
 
   return (
     <>
