@@ -24,7 +24,7 @@ export function loginUser(loginInfo) {
       if (response.ok) {
         const data = await response.json();
         console.log(data.token);
-
+        localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("token", data.token);
         resolve({ data });
       } else {
@@ -93,7 +93,7 @@ export function resetPasswordRequest(email) {
           message: "Mail Sent!",
           description: "Mail sent successfully.",
         });
-        // navigate(`/reset-password?token=${data.token}&email=${data.email}`)
+
         resolve({ data });
       } else {
         const error = await response.text();

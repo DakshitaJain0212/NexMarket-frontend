@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "../cart/CartSlice";
-import { selectLoggedInUser, resetUser } from "../auth/authSlice";
+import {  resetUser } from "../auth/authSlice";
 import { selectUserInfo } from "../user/userSlice";
 
 const navigation = [

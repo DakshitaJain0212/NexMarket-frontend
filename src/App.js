@@ -175,9 +175,10 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
-  localStorage.setItem("user", JSON.stringify(user));
+  // const user = useSelector(selectLoggedInUser);
+  const user = JSON.parse(localStorage.getItem("user"));
   // const userChecked = useSelector(selectUserChecked);
+  console.log(user);
 
   const token = localStorage.getItem("token");
   useEffect(() => {

@@ -12,8 +12,9 @@ import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { discountedPrice } from "../../app/constant";
 import Modal from "../common/Modal";
-import { selectLoggedInUser } from "../auth/authSlice";
+// import { selectLoggedInUser } from "../auth/authSlice";
 // import { Grid } from 'react-loader-spinner';
+import { selectUserInfo } from '../user/userSlice';
 
 
 export default function Cart() {
@@ -24,7 +25,7 @@ export default function Cart() {
   const status = useSelector(selectCartStatus);
   const cartLoaded = useSelector(selectCartLoaded);
   const [openModal, setOpenModal] = useState(null);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   useEffect(() => {
     dispatch(fetchItemsByUserIdAsync(user.id));
     },[])

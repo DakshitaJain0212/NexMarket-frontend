@@ -10,7 +10,8 @@ import {
 import { useParams } from "react-router-dom";
 import { Button, notification } from 'antd';
 import { addToCartAsync, selectItems } from "../../cart/CartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
+// import { selectLoggedInUser } from "../../auth/authSlice";
+import { selectUserInfo } from '../../user/userSlice'
 import { discountedPrice } from "../../../app/constant";
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -44,7 +45,8 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState();
   const items = useSelector(selectItems);
   const product = useSelector(selectProductById);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
+  console.log(user)
   const dispatch = useDispatch();
   const params = useParams();
   // const alert = useAlert();
@@ -53,6 +55,14 @@ export default function ProductDetail() {
   console.log(items);
   const handleCart = (e) => {
     e.preventDefault();
+    if (product.stock === 0) {
+      notification.error({
+        message: 'Out of Stock',
+        description: 'This item is currently out of stock.',
+      });
+     
+    }
+  else{
     if (items.findIndex((item) => item.product.id === product.id) < 0) {
       console.log({ items, product });
       const newItem = {
@@ -78,6 +88,8 @@ export default function ProductDetail() {
         description: 'This item is already added to your Cart.',
       });
     }
+  }
+   
   };
 
   useEffect(() => {
@@ -343,6 +355,7 @@ export default function ProductDetail() {
                 >
                   Add to Cart
                 </button>
+                
               </form>
             </div>
 

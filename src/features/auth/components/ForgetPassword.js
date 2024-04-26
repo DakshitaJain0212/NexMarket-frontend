@@ -4,11 +4,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import { resetPasswordRequestAsync, 
     selectMailSent 
 } from '../authSlice';
-import { useNavigate } from  'react-router-dom';
+
 import { useEffect } from 'react';
 
 export default function ForgotPassword() {
-const navigate = useNavigate();
+
  const mailSent = useSelector(selectMailSent);
   const dispatch = useDispatch()
   const {
@@ -84,13 +84,7 @@ const navigate = useNavigate();
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Send me back to{' '}
-            <Link
-              to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Login
-            </Link>
+            Go to the Login Page
           </p>
         </div>
       </div>

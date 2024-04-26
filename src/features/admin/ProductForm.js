@@ -11,10 +11,13 @@ import {
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-// import Modal from '../common/Modal';
+import Modal from '../common/Modal';
+import { Button, notification } from 'antd'; 
+import { useNavigate } from  'react-router-dom';
 // import { useAlert } from 'react-alert';
 
 function ProductForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -151,13 +154,23 @@ function ProductForm() {
             product.id = params.id;
             product.rating = selectedProduct.rating || 0;
             dispatch(updateProductAsync(product));
-            // alert.success('Product Updated');
+            notification.success({
+              message: "Product Updated",
+              description: "Product Updated Successfully.",
+            });
+            navigate('/')
             console.log("product updated")
 
             reset();
           } else {
             dispatch(createProductAsync(product));
             // alert.success('Product Created');
+            dispatch(updateProductAsync(product));
+            notification.success({
+              message: "Product Created",
+              description: "Product Created Sccessfully.",
+            });
+            navigate('/')
             console.log("product created")
             reset();
           }
@@ -646,7 +659,7 @@ function ProductForm() {
           </button>
         </div>
       </form>
-      {/* {selectedProduct && (
+      {selectedProduct && (
         <Modal
           title={`Delete ${selectedProduct.title}`}
           message="Are you sure you want to delete this Product ?"
@@ -656,7 +669,7 @@ function ProductForm() {
           cancelAction={() => setOpenModal(null)}
           showModal={openModal}
         ></Modal>
-      )} */}
+      )}
     </>
   );
 }

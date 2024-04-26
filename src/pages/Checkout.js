@@ -18,7 +18,7 @@ import {
   // selectStatus,
 } from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
-import { selectLoggedInUser } from "../features/auth/authSlice";
+// import { selectLoggedInUser } from "../features/auth/authSlice";
 import { discountedPrice } from "../app/constant";
 import { message } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
@@ -33,7 +33,7 @@ function Checkout() {
     formState: { errors },
   } = useForm();
 
-  const loggedInUser = useSelector(selectLoggedInUser);
+ const loggedInUser = JSON.parse(localStorage.getItem("user"));
   console.log(loggedInUser);
   useEffect(() => {
     dispatch(fetchLoggedInUserAsync(loggedInUser.id));

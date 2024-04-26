@@ -9,7 +9,8 @@ import {
 } from '../product/PrductListSlice';
 import { useParams } from 'react-router-dom';
 import { addToCartAsync, selectItems } from '../cart/CartSlice';
-import { selectLoggedInUser } from '../auth/authSlice';
+// import { selectLoggedInUser } from '../auth/authSlice';
+import { selectUserInfo } from '../user/userSlice';
 // import { useAlert } from 'react-alert';
 // import { Grid } from 'react-loader-spinner';
 
@@ -22,7 +23,8 @@ function classNames(...classes) {
 export default function AdminProductDetail() {
   const [selectedColor, setSelectedColor] = useState();
   const [selectedSize, setSelectedSize] = useState();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
+
   const items = useSelector(selectItems);
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
