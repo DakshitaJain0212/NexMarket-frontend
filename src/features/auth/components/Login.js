@@ -46,6 +46,10 @@ export default function Login() {
              const token =  localStorage.getItem("token");
              if(token) {
               navigate('/');
+              
+             }
+             else{
+              navigate('/login');
              }
             })}
             className="space-y-6"

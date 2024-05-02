@@ -26,11 +26,25 @@ export function loginUser(loginInfo) {
         console.log(data.token);
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("token", data.token);
+        notification.success({
+          message: "login Successfully!"
+        })
         resolve({ data });
       } else {
         const err = await response.json();
         console.log(err);
-        message.error(err.error);
+        notification.error({
+          message: 'Password Requirements',
+          description: (
+            <ul>
+              <li>It must contain at least one capital letter.</li>
+              <li>It must be at least 8 characters long.</li>
+              <li>It must not contain spaces or special characters.</li>
+              <li>It should include a mix of uppercase letters, lowercase letters, numbers, and symbols for increased security.</li>
+            </ul>
+          ),
+          duration: 0, // Duration 0 indicates it won't auto close
+        });
         reject(err);
       }
     } catch (error) {

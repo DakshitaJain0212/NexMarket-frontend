@@ -31,7 +31,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constant";
 import Pagination from '../../common/Pagination';
-// import { Grid } from 'react-loader-spinner';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -159,7 +159,7 @@ export default function ProductList() {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const totalItems = useSelector(selectTotalItems);
-  // const status = useSelector(selectProductListStatus);
+  const status = useSelector(selectProductListStatus);
   const filters = [
     {
       id: "category",
@@ -226,9 +226,18 @@ export default function ProductList() {
     dispatch(fetchCategoriesAsync());
   }, []);
 
+  
+
   return (
     <div className="bg-white">
-      <div>
+      {status === 'loading' ? (
+            <div style={{ position: 'relative', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ position: 'absolute' }}>
+              <LoadingOutlined fontSise="60px"/>
+            </div>
+          </div>
+          ) : null} 
+          <div>
         <MobileFilter
           handleFilter={handleFilter}
           mobileFiltersOpen={mobileFiltersOpen}
