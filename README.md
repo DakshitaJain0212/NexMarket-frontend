@@ -1,42 +1,42 @@
 # NexMarket
 
-🔗 Project Link : https://nex-market-frontend.vercel.app
+🔗 **Project Link**: [NexMarket Frontend](https://nex-market-frontend.vercel.app)
 
+## Code Repositories
 
- Code Repositories:
-- React [frontend] - https://github.com/DakshitaJain0212/NexMarket-frontend
-- Node [backend] - https://github.com/DakshitaJain0212/NexMarket-Backend
+- **Frontend (React)**: [NexMarket-frontend](https://github.com/DakshitaJain0212/NexMarket-frontend)
+- **Backend (Node)**: [NexMarket-Backend](https://github.com/DakshitaJain0212/NexMarket-Backend)
 
-Preview: 
+## Preview
 
-<p align="center">  
-  <br><br><img alt="Clock" src="./src/asset/img1.png">
-  <sub>Home Page<sub>
+<p align="center">
+  <img alt="Home Page" src="./src/asset/img1.png">
+  <sub>Home Page</sub>
 </p>
 
 <p align="center">
-  <br><br><img alt="Clock" src="./src/asset/img3.png">
-  <sub>Cart<sub>
+  <img alt="Cart" src="./src/asset/img3.png">
+  <sub>Cart</sub>
 </p>
 
 <p align="center">
-  <br><br><img alt="Clock" src="./src/asset/img2.png">
-  <sub>Product Details<sub>
+  <img alt="Product Details" src="./src/asset/img2.png">
+  <sub>Product Details</sub>
 </p>
 
+## Features
 
- Features :
-- Secure Card Payments / Cash payments
-- Admin Panel - Add/Edit Orders. Add/Edit Products
-- Order Emails, Reset Password Emails
-- User Profile and user orders
+- **Secure Payments**: Card and cash payments.
+- **Admin Panel**: Add/Edit Orders and Products.
+- **Order Emails**: Includes order and reset password emails.
+- **User Profile**: Manage user profiles and view order history.
 
- Technical Details :
-- React 18 with Tailwind CSS
-- Redux Toolkit with Async Thunk
-- MongoDB for Database
-- REST API using Express
-- API Authentication using JWT token
-- MongoDB Atlas cloud database
-- Email using Nodemailer - using GMail SMTP system
-- Payments using Stripe - PaymentIntent based custom flow
+## Technical Details
+
+- **Frontend**: React 18 with Tailwind CSS
+- **State Management**: Redux Toolkit with Async Thunk
+- **Database**: MongoDB (MongoDB Atlas cloud database)
+- **API**: REST API using Express
+- **Authentication**: JWT token
+- **Email Service**: Nodemailer (GMail SMTP system)
+- **Payments**: Stripe (PaymentIntent based custom flow)
